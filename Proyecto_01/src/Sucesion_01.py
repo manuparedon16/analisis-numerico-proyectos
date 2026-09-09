@@ -1,5 +1,4 @@
 import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
 from pathlib import Path
 
@@ -30,7 +29,7 @@ de los índices n_0 o n_0 + 1 sirve como testigo.
 
 # Función para generar la sucesión
 def sucesion_01(N):
-    """Sucesión a_n = 5n para n = 1, ..., N."""
+    """Sucesión a_n = 5n para n = 1, ..., N"""
     terminos = []                      # lista vacía
 
     for i in range(N):                 # i = 0, 1, ..., N-1
@@ -75,6 +74,7 @@ def testigo_divergencia(terminos, L, n0, epsilon):
 RAIZ = Path(__file__).resolve().parent.parent
 GRAFICAS = RAIZ / "graficas"
 
+# Ejecutamos el código y graficamos
 if __name__ == "__main__":
     N = 30
     a = sucesion_01(N)
