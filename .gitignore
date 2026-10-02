@@ -2,16 +2,16 @@
 .venv/
 venv/
 
+
 # Python
 __pycache__/
 *.py[cod]
 *.egg-info/
 
-# Jupyter
-.ipynb_checkpoints/
 
 # VS Code
 .vscode/
+
 
 # Sistema
 Thumbs.db

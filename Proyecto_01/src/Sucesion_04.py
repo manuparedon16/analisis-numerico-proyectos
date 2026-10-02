@@ -15,7 +15,7 @@ TEOREMA DE WEIERSTRASS
 Toda sucesión monótona y acotada es convergente.
 """
 
-# Generemos la función 4
+# Generemos la sucesión
 def sucesion_04(n):
     """
     Genera los primeros n términos de la sucesión
@@ -51,13 +51,30 @@ def esta_acotada_superiormente(terminos, cota):
     
     return np.all(terminos <= cota)
 
-RAIZ = Path(__file__).resolve().parent.parent
-GRAFICAS = RAIZ / "graficas"
+# Identifica que el límite sea 1.
+def verifica_forma_limite(terminos):
+    """
+    Verifica la identidad
+
+        a_n = 1 - 1/(n+1),
+
+    que permite identificar el límite L = 1.
+    """
+    terminos = np.asarray(terminos)
+
+    n = np.arange(1, len(terminos) + 1)
+    forma = 1 - 1 / (n + 1)
+
+    return np.allclose(terminos, forma)
 
 # Medimos el error respecto al límite
 def errores(terminos, limite):
     """Error absoluto |a_n - L| respecto al límite propuesto."""
     return np.abs(np.asarray(terminos) - limite)
+
+RAIZ = Path(__file__).resolve().parent.parent
+GRAFICAS = RAIZ / "graficas"
+GRAFICAS.mkdir(parents=True, exist_ok=True)
 
 if __name__ == "__main__":
     N = 30
@@ -75,6 +92,12 @@ if __name__ == "__main__":
     print("¿La sucesión es monótona creciente?", creciente)
     print("¿Está acotada superiormente por 1?", acotada)
     print("¿Cumple las hipótesis de Weierstrass?", creciente and acotada)
+    
+    forma_limite = verifica_forma_limite(a)
+
+    print("\n--- Identificación del límite ---")
+    print("¿Se cumple a_n = 1 - 1/(n+1)?", forma_limite)
+    print("Como 1/(n+1) -> 0, entonces L = 1.")
 
     # Error respecto al límite L = 1
     e = errores(a, 1)
@@ -95,7 +118,7 @@ if __name__ == "__main__":
     plt.legend()
     plt.grid(True)
 
-    plt.savefig(GRAFICAS / "ej04.png", dpi=150, bbox_inches="tight")
+    plt.savefig(GRAFICAS / "sucesion04.png", dpi=150, bbox_inches="tight")
     plt.close()
 
-    print("\nFigura guardada en graficas/ej04.png")
+    print("\nFigura guardada en graficas/sucesion04.png")

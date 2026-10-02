@@ -73,6 +73,7 @@ def testigo_divergencia(terminos, L, n0, epsilon):
 
 RAIZ = Path(__file__).resolve().parent.parent
 GRAFICAS = RAIZ / "graficas"
+GRAFICAS.mkdir(parents=True, exist_ok=True)
 
 # Ejecutamos el código y graficamos
 if __name__ == "__main__":
@@ -101,13 +102,20 @@ if __name__ == "__main__":
     ax1.legend(fontsize=8); ax1.grid(True)
 
     ax2.plot(n[:-1], d, 'o-', ms=4, color='seagreen')
-    ax2.axhline(0, color='k', ls=':', lw=1, label='requerido si converge')
     ax2.set_ylim(-0.5, 6)
     ax2.set_xlabel('$n$'); ax2.set_ylabel(r'$|a_{n+1} - a_n|$')
-    ax2.set_title('Criterio de Cauchy')
-    ax2.legend(fontsize=8); ax2.grid(True)
+    ax2.set_title('Diferencias consecutivas: condición necesaria')
+    ax2.axhline(
+        0,
+        color='k',
+        ls=':',
+        lw=1,
+        label='si converge, deben tender a 0'
+    )
+    ax2.legend(fontsize=8)
+    ax2.grid(True)
 
     plt.tight_layout()
-    plt.savefig(GRAFICAS / "ej01.png", dpi=150, bbox_inches="tight")
+    plt.savefig(GRAFICAS / "sucesion01.png", dpi=150, bbox_inches="tight")
     plt.close()
-    print("Figura guardada en graficas/ej01.png")
+    print("Figura guardada en graficas/sucesion01.png")

@@ -43,13 +43,14 @@ def verifica_sandwich(inferior, terminos, superior):
         'ultimo_superior': superior[-1],
     }
 
-RAIZ = Path(__file__).resolve().parent.parent
-GRAFICAS = RAIZ / "graficas"
-
 # Función para medir el grado de error
 def errores(terminos, limite):
     """Error absoluto |a_n - L| respecto al límite propuesto."""
     return np.abs(np.asarray(terminos) - limite)
+
+RAIZ = Path(__file__).resolve().parent.parent
+GRAFICAS = RAIZ / "graficas"
+GRAFICAS.mkdir(parents=True, exist_ok=True)
 
 # Ejecutamos el código y graficamos
 if __name__ == "__main__":
@@ -65,7 +66,7 @@ if __name__ == "__main__":
     # Teorema del Sándwich
     r = verifica_sandwich(b, a, c)
     print("\n--- Teorema del Sándwich ---")
-    print("¿Se cumple 0 < a_n < 1/n?", r['emparedado'])
+    print("¿Se cumple 0 <= a_n <= 1/n?", r["emparedado"])    
     print(f"Último inferior: {r['ultimo_inferior']}")
     print(f"Último a_n:      {r['ultimo_a']:.3e}") # .3e notación científica de 3 decimales
     print(f"Último superior: {r['ultimo_superior']:.3e}")
@@ -91,7 +92,9 @@ if __name__ == "__main__":
     ax1.plot(n, b, '-',   lw=1, color='k',       label=r'$b_n = 0$')
     ax1.fill_between(n, b, c, color='crimson', alpha=0.10)
     ax1.set_xlabel('$n$'); ax1.set_ylabel('valor')
-    ax1.set_title('Teorema del Sándwich: $0 < 2^{-n} < 1/n$')
+    ax1.set_title(
+        r'Teorema del Sándwich: $0 \leq 2^{-n} \leq 1/n$'
+    )
     ax1.legend(fontsize=8); ax1.grid(True)
 
     # Panel derecho: error en escala logarítmica
@@ -101,6 +104,6 @@ if __name__ == "__main__":
     ax2.legend(fontsize=8); ax2.grid(True, which='both')
 
     plt.tight_layout()
-    plt.savefig(GRAFICAS / "ej02.png", dpi=150, bbox_inches="tight")
+    plt.savefig(GRAFICAS / "sucesion02.png", dpi=150, bbox_inches="tight")
     plt.close()
-    print("\nFigura guardada en graficas/ej02.png")
+    print("\nFigura guardada en graficas/sucesion02.png")

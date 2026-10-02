@@ -58,16 +58,14 @@ def verificar_sandwich(inferior, a, superior):
         "ultimo_superior": superior[-1]
     }
 
-
-RAIZ = Path(__file__).resolve().parent.parent
-GRAFICAS = RAIZ / "graficas"
-
-
 # Medimos el error
 def errores(terminos, limite):
     """Error absoluto |a_n - L| respecto al límite propuesto."""
     return np.abs(np.asarray(terminos) - limite)
 
+RAIZ = Path(__file__).resolve().parent.parent
+GRAFICAS = RAIZ / "graficas"
+GRAFICAS.mkdir(parents=True, exist_ok=True)
 
 if __name__ == "__main__":
     N = 30
@@ -109,7 +107,7 @@ if __name__ == "__main__":
     plt.legend()
     plt.grid(True)
 
-    plt.savefig(GRAFICAS / "ej03.png", dpi=150, bbox_inches="tight")
+    plt.savefig(GRAFICAS / "sucesion03.png", dpi=150, bbox_inches="tight")
     plt.close()
 
-    print("\nFigura guardada en graficas/ej03.png")
+    print("\nFigura guardada en graficas/sucesion03.png")

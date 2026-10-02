@@ -6,16 +6,24 @@ from pathlib import Path
 EJERCICIO 5
 
 Verificar si la sucesión de Fibonacci, definida por
-f_1 = 1
-f_2 = 1
-f_n = f_{n-1} + f_{n-2}, para n >= 3,
+
+    f_1 = 1
+    f_2 = 1
+    f_n = f_{n-1} + f_{n-2}, para n >= 3,
+
 converge o diverge.
 
-Los primeros términos de la sucesión son:
-1, 1, 2, 3, 5, 8, 13, ...
+Primero verificamos que la sucesión es monótona no decreciente:
 
-Para analizar su comportamiento verificaremos dos propiedades.
-Primero, comprobaremos que la sucesión es monótona no decreciente, verificando que así que la sucesión de Fibonacci diverge.
+    f_{n+1} - f_n >= 0.
+
+Después verificamos la cota inferior:
+
+    f_n >= n - 1.
+
+Como n - 1 -> +infinito, entonces f_n -> +infinito.
+
+Por lo tanto, la sucesión diverge.
 """
 
 # Generamos la sucesión de Fibonacci
@@ -57,6 +65,7 @@ def verificar_cota_inferior(terminos):
 
 RAIZ = Path(__file__).resolve().parent.parent
 GRAFICAS = RAIZ / "graficas"
+GRAFICAS.mkdir(parents=True, exist_ok=True)
 
 
 if __name__ == "__main__":
@@ -82,16 +91,30 @@ if __name__ == "__main__":
     print(f"Último n-1: {n[-1] - 1}")
 
     # Gráfica
-    plt.plot(n, f, "o-", ms=4, label=r"$f_n$")
-    plt.plot(n, n - 1, "--", label=r"$n-1$")
+    plt.semilogy(
+        n,
+        f,
+        "o-",
+        ms=4,
+        label=r"$f_n$"
+    )
+
+    plt.semilogy(
+        n[1:],
+        n[1:] - 1,
+        "--",
+        label=r"$n-1$"
+    )
 
     plt.xlabel("n")
-    plt.ylabel("valor")
-    plt.title("Sucesión de Fibonacci")
+    plt.ylabel("valor (escala log)")
+    plt.title("Fibonacci y su cota inferior")
     plt.legend()
-    plt.grid(True)
+    plt.grid(True, which="both")
 
-    plt.savefig(GRAFICAS / "ej05.png", dpi=150, bbox_inches="tight")
+    plt.savefig(
+        GRAFICAS / "sucesion05.png",
+        dpi=150,
+        bbox_inches="tight"
+    )
     plt.close()
-
-    print("\nFigura guardada en graficas/ej05.png")
